@@ -25,11 +25,24 @@ public class CrudHbase extends Crud {
 	Table table = null;
 	
 	
-	public CrudHbase() {
+	public CrudHbase(int c) {
 		try {
 			hbaseConf = HBaseConfiguration.create();
 			connection = ConnectionFactory.createConnection(hbaseConf);
-			table = connection.getTable(TableName.valueOf(Config.DB_HBASE_NAME_1));
+			if(c==1) {
+				table = connection.getTable(TableName.valueOf(Config.DB_HBASE_NAME_1));
+			} else if (c == 2) {
+				table = connection.getTable(TableName.valueOf(Config.DB_HBASE_NAME_QUARTER));
+			} else if (c == 3) {
+				table = connection.getTable(TableName.valueOf(Config.DB_HBASE_NAME_HALF));
+			} else if (c == 4) {
+				table = connection.getTable(TableName.valueOf(Config.DB_HBASE_NAME_3_QUARTERS));
+			} else if (c == 5) {
+				table = connection.getTable(TableName.valueOf(Config.DB_HBASE_NAME_FULL));
+			}
+			
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -44,7 +57,7 @@ public class CrudHbase extends Crud {
 			
 			Put put = new Put(Bytes.toBytes("" +key));
 			for (int i = 0; i<Config.allColumns.size(); i++) {
-				put.addColumn(Bytes.toBytes(Config.CF_1), Bytes.toBytes(Config.allColumns.get(i)), Bytes.toBytes(contract.fields.get(i)));
+				put.addColumn(Bytes.toBytes(Config.CF_GLOBAL), Bytes.toBytes(Config.allColumns.get(i)), Bytes.toBytes(contract.fields.get(i)));
 			}
 			start = System.currentTimeMillis();
 			table.put(put);
@@ -66,13 +79,11 @@ public class CrudHbase extends Crud {
 		long start = 0, end = 0, total = 0;
 		try {
 
-			
-			
 			for (Contract contract : contracts) {
 				Put put = null;
 				for (int i = 0; i<Config.allColumns.size(); i++) {
 					put = new Put(Bytes.toBytes("" +i));
-					put.addColumn(Bytes.toBytes(Config.CF_1), Bytes.toBytes(Config.allColumns.get(i)), Bytes.toBytes(contract.fields.get(i)));
+					put.addColumn(Bytes.toBytes(Config.CF_GLOBAL), Bytes.toBytes(Config.allColumns.get(i)), Bytes.toBytes(contract.fields.get(i)));
 				}
 				start = System.currentTimeMillis();
 				table.put(put);
@@ -96,12 +107,10 @@ public class CrudHbase extends Crud {
 	public long readTupleTimes(int key) {
 		long start = 0, end = 0;
 		try {
-
 			Get get = new Get(Bytes.toBytes("" +key));
 			start = System.currentTimeMillis();
 			Result result = table.get(get);
 			end = System.currentTimeMillis();
-			connection.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}catch (Exception e) {
@@ -134,9 +143,25 @@ public class CrudHbase extends Crud {
 	
 	
 	@Override
-	public long updateTupleTimes() {
-		// TODO Auto-generated method stub
-		return 0;
+	public long updateTupleTimes(int key, Contract contract) {
+		long start = 0, end = 0;
+		try {
+			contract.setAdress2("Paris");
+			
+			Put put = new Put(Bytes.toBytes("" +key));
+			for (int i = 0; i<Config.allColumns.size(); i++) {
+				put.addColumn(Bytes.toBytes(Config.CF_GLOBAL), Bytes.toBytes(Config.allColumns.get(i)), Bytes.toBytes(contract.fields.get(i)));
+			}
+			start = System.currentTimeMillis();
+			table.put(put);
+			end = System.currentTimeMillis();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return (end-start);
 	}
 	
 	

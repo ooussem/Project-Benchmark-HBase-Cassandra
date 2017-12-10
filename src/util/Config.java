@@ -5,15 +5,26 @@ import java.util.List;
 
 public final class Config {
 	
-	public static final  String	fileName 				= "/home/oussema/eclipse_workspace_gda/Chicagro_contracts_hbase/Ressource/part_contracts.csv";
-	public static final  String	DB_HBASE_NAME_1 		= "Contracts_1";
-	public static final  String	CF_1 					= "details";
+	// File
+	public static final  String	FILE_NAME 				= "/home/oussema/eclipse_workspace_gda/Chicagro_contracts_hbase/Ressource/contracts.csv";
+	public static final  String	FILE_NAME_QUARTER 		= "/home/oussema/eclipse_workspace_gda/Chicagro_contracts_hbase/Ressource/contracts_quarter.csv";
+	
+	// DB name
+	public static final  String	DB_HBASE_NAME_1 				= "Contracts_1";
+	public static final  String	DB_HBASE_NAME_QUARTER 			= "Contracts_quarter";
+	public static final  String	DB_HBASE_NAME_HALF 				= "Contracts_half";
+	public static final  String	DB_HBASE_NAME_3_QUARTERS 		= "Contracts_3_quarter";
+	public static final  String	DB_HBASE_NAME_FULL		 		= "Contracts_full";
+	
+	// Column Family
+	public static final  String	CF_GLOBAL 						= "details";
 	
 	public static final String headerCSV10timesOperations       = "create,read,update,delete";
 	public static final String csvFileResult10timesOperations   = "/Chicagro_contracts_hbase/Ressource/Result/";
 	
-	public final  static List<String> allColumns 			= new ArrayList<String>();
 	
+	
+	public final  static List<String> allColumns 			= new ArrayList<String>();
 	public final  static String	purchaseOrderDesc 		= "purchaseOrderDesc";
 	public final  static String	purchaseOrderNumber 	= "purchaseOrderNumber";
 	public final  static String	revisionNumber 			= "revisionNumber";

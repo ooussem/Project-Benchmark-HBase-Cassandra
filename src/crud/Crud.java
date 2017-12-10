@@ -23,7 +23,7 @@ public abstract class Crud {
 		return 0;
 	}
 	
-	public long updateTupleTimes() {
+	public long updateTupleTimes(int key, Contract contract) {
 		return 0;
 	}
 	
