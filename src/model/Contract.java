@@ -306,5 +306,19 @@ public class Contract {
 	public void setContractPDF(String contractPDF) {
 		this.contractPDF = contractPDF;
 	}
+
+	@Override
+	public String toString() {
+		return "Contract [purchaseOrderDesc=" + purchaseOrderDesc + ", purchaseOrderNumber=" + purchaseOrderNumber
+				+ ", revisionNumber=" + revisionNumber + ", specificationNumber=" + specificationNumber
+				+ ", contractType=" + contractType + ", startDate=" + startDate + ", dateEnd=" + dateEnd
+				+ ", approvalDate=" + approvalDate + ", departement=" + departement + ", vendorName=" + vendorName
+				+ ", vendorId=" + vendorId + ", adress1=" + adress1 + ", adress2=" + adress2 + ", city=" + city
+				+ ", state=" + state + ", zip=" + zip + ", awardAmount=" + awardAmount + ", procurementType="
+				+ procurementType + ", contractPDF=" + contractPDF + "]";
+	}
+	
+	
+	
 	
 }

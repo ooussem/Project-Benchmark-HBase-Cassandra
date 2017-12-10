@@ -12,47 +12,48 @@ public final class Config {
 	public static final String headerCSV10timesOperations       = "create,read,update,delete";
 	public static final String csvFileResult10timesOperations   = "/Chicagro_contracts_hbase/Ressource/Result/";
 	
-	public final  List<String> allColumns 			= new ArrayList<String>();
-	public final  String	purchaseOrderDesc 		= "purchaseOrderDesc";
-	public final  String	purchaseOrderNumber 	= "purchaseOrderNumber";
-	public final  String	revisionNumber 			= "revisionNumber";
-	public final  String	specificationNumber 	= "specificationNumber";
-	public final  String	contractType 			= "contractType";
-	public final  String	startDate 				= "startDate";
-	public final  String	dateEnd 				= "dateEnd";
-	public final  String	approvalDate 			= "approvalDate";
-	public final  String	departement 			= "departement";
-	public final  String	vendorName 				= "vendorName";
-	public final  String	vendorId 				= "vendorId";
-	public final  String	adress1 				= "adress1";
-	public final  String	adress2 				= "adress2";
-	public final  String	city 					= "city";
-	public final  String	state 					= "state";
-	public final  String	zip 					= "zip";
-	public final  String	awardAmount 			= "awardAmount";
-	public final  String	procurementType 		= "procurementType";
-	public final  String	contractPDF 			= "contractPDF";
+	public final  static List<String> allColumns 			= new ArrayList<String>();
 	
-	public Config() {
-		this.allColumns.add(purchaseOrderDesc);
-		this.allColumns.add(purchaseOrderNumber);
-		this.allColumns.add(revisionNumber);
-		this.allColumns.add(specificationNumber);
-		this.allColumns.add(contractType);
-		this.allColumns.add(startDate);
-		this.allColumns.add(dateEnd);
-		this.allColumns.add(approvalDate);
-		this.allColumns.add(departement);
-		this.allColumns.add(vendorName);
-		this.allColumns.add(vendorId);
-		this.allColumns.add(adress1);
-		this.allColumns.add(adress2);
-		this.allColumns.add(city);
-		this.allColumns.add(state);
-		this.allColumns.add(zip);
-		this.allColumns.add(awardAmount);
-		this.allColumns.add(procurementType);
-		this.allColumns.add(contractPDF);
+	public final  static String	purchaseOrderDesc 		= "purchaseOrderDesc";
+	public final  static String	purchaseOrderNumber 	= "purchaseOrderNumber";
+	public final  static String	revisionNumber 			= "revisionNumber";
+	public final  static String	specificationNumber 	= "specificationNumber";
+	public final  static String	contractType 			= "contractType";
+	public final  static String	startDate 				= "startDate";
+	public final  static String	dateEnd 				= "dateEnd";
+	public final  static String	approvalDate 			= "approvalDate";
+	public final  static String	departement 			= "departement";
+	public final  static String	vendorName 				= "vendorName";
+	public final  static String	vendorId 				= "vendorId";
+	public final  static String	adress1 				= "adress1";
+	public final  static String	adress2 				= "adress2";
+	public final  static String	city 					= "city";
+	public final  static String	state 					= "state";
+	public final  static String	zip 					= "zip";
+	public final  static String	awardAmount 			= "awardAmount";
+	public final  static String	procurementType 		= "procurementType";
+	public final  static String	contractPDF 			= "contractPDF";
+	
+	static{
+		allColumns.add(purchaseOrderDesc);
+		allColumns.add(purchaseOrderNumber);
+		allColumns.add(revisionNumber);
+		allColumns.add(specificationNumber);
+		allColumns.add(contractType);
+		allColumns.add(startDate);
+		allColumns.add(dateEnd);
+		allColumns.add(approvalDate);
+		allColumns.add(departement);
+		allColumns.add(vendorName);
+		allColumns.add(vendorId);
+		allColumns.add(adress1);
+		allColumns.add(adress2);
+		allColumns.add(city);
+		allColumns.add(state);
+		allColumns.add(zip);
+		allColumns.add(awardAmount);
+		allColumns.add(procurementType);
+		allColumns.add(contractPDF);
 	}
 	
 	

@@ -5,48 +5,45 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVRecord;
 
 import model.Contract;
 
 public class UtilFileCSV {
 	
 	
+	
 	public static List<Contract> readFileCSV(String pathFile) {
 		List<Contract> contracts = new ArrayList<>();
-		BufferedReader csvFile = null;
+		Iterable<CSVRecord> records = null;
 		try {
-			csvFile = new BufferedReader(new FileReader(new File(pathFile)));
+			Reader in = new FileReader(pathFile);
+			records = CSVFormat.RFC4180.withHeader("purchaseOrderDesc", "purchaseOrderNumber", "revisionNumber", "specificationNumber", "contractType", "startDate", "dateEnd", "approvalDate", "departement", "vendorName"
+					, "vendorId", "adress1", "adress2", "city", "state", "zip", "awardAmount", "procurementType", "contractPDF").parse(in);
 			
-			// 1st method
-			csvFile.readLine();
-			while(csvFile.readLine() != null) {
-				String[] field = csvFile.readLine().split(",");
-				Contract contract = new Contract(field[0], field[1], field[2], field[3], field[4], field[5], field[6], field[7], field[8], field[9], field[10], field[11], field[12]
-						, field[13], field[14], field[15], field[16], field[17], field[18]);
-				contracts.add(contract);
-			}
-			
-			// 2nd method
-			//contracts = csvFile.lines().skip(1).map(mapToContract).collect(Collectors.toList());			
-			
-		}catch (FileNotFoundException e) {
+		} catch (IOException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				csvFile.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		}
+		
+		for (CSVRecord record : records) {
+		    Contract contract = new Contract(record.get("purchaseOrderDesc"), record.get("purchaseOrderNumber"), record.get("revisionNumber"), record.get("specificationNumber"), record.get("contractType"),
+		    		record.get("startDate"), record.get("dateEnd"), record.get("approvalDate"), record.get("departement"), record.get("vendorName"), record.get("vendorId"), 
+		    		record.get("adress1"), record.get("adress2"), record.get("city"), record.get("state"), record.get("zip"), record.get("awardAmount"), record.get("procurementType"), record.get("contractPDF"));
+		    contracts.add(contract);
 		}
 		
 		return contracts;
 	}
+	
+	
+	
 	
 	
 	/**
@@ -80,25 +77,7 @@ public class UtilFileCSV {
 		return contract;
 	}
 	
-	
-	
-	private static Function<String, Contract> mapToContract = (line) -> {
-		String[] field = new String[19];
-		field = line.concat(" ").replace(",,", ", ,").split(",");
-//		for (int i =0; i<=field.length; i++) {
-//			if(field.length==0) field[i].replace("", " ");
-//		}
-		
-		Contract contract = new Contract(field[0], field[1], field[2], field[3], field[4], field[5], field[6], field[7], field[8], field[9], field[10], field[11], field[12]
-				, field[13], field[14], field[15], field[16], field[17], field[18]);
-		return contract;
-	};
-	
-	
-	public static void writeCSVFile(long time, String header, String fileName) {
-		//FileWriter fw = new FileWriter(fileName);
-	}
-	
+
 	
 
 }

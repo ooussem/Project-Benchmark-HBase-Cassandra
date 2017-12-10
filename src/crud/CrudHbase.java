@@ -1,6 +1,7 @@
 package crud;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.hbase.HBaseConfiguration;
@@ -18,25 +19,37 @@ import model.Contract;
 import util.Config;
 
 
-public class CrudHbase implements ICrud {
+public class CrudHbase extends Crud {
+	Configuration hbaseConf = null;
+	Connection connection = null;
+	Table table = null;
 	
-	@Override
+	
+	public CrudHbase() {
+		try {
+			hbaseConf = HBaseConfiguration.create();
+			connection = ConnectionFactory.createConnection(hbaseConf);
+			table = connection.getTable(TableName.valueOf(Config.DB_HBASE_NAME_1));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	
+	
 	public long createTupleTimes(int key, Contract contract) {
 		long start = 0, end = 0;
 		try {
-			Configuration hbaseConf = HBaseConfiguration.create();
-			Connection connection = ConnectionFactory.createConnection(hbaseConf);
-			Table table = connection.getTable(TableName.valueOf(Config.DB_HBASE_NAME_1));
 			
-			util.Config config = new Config();
 			Put put = new Put(Bytes.toBytes("" +key));
-			for (int i = 0; i<config.allColumns.size(); i++) {
-				put.addColumn(Bytes.toBytes(Config.CF_1), Bytes.toBytes(config.allColumns.get(i)), Bytes.toBytes(contract.fields.get(i)));
+			for (int i = 0; i<Config.allColumns.size(); i++) {
+				put.addColumn(Bytes.toBytes(Config.CF_1), Bytes.toBytes(Config.allColumns.get(i)), Bytes.toBytes(contract.fields.get(i)));
 			}
 			start = System.currentTimeMillis();
 			table.put(put);
 			end = System.currentTimeMillis();
-			connection.close();
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}catch (Exception e) {
@@ -49,12 +62,41 @@ public class CrudHbase implements ICrud {
 	
 	
 	@Override
+	public long createTuplesTimes(List<Contract> contracts) {
+		long start = 0, end = 0, total = 0;
+		try {
+
+			
+			
+			for (Contract contract : contracts) {
+				Put put = null;
+				for (int i = 0; i<Config.allColumns.size(); i++) {
+					put = new Put(Bytes.toBytes("" +i));
+					put.addColumn(Bytes.toBytes(Config.CF_1), Bytes.toBytes(Config.allColumns.get(i)), Bytes.toBytes(contract.fields.get(i)));
+				}
+				start = System.currentTimeMillis();
+				table.put(put);
+				end = System.currentTimeMillis();
+				total += (end-start);
+				put = null;
+			}
+			
+			connection.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return total;
+	}
+
+
+	@Override
 	public long readTupleTimes(int key) {
 		long start = 0, end = 0;
 		try {
-			Configuration hbaseConf = HBaseConfiguration.create();
-			Connection connection = ConnectionFactory.createConnection(hbaseConf);
-			Table table = connection.getTable(TableName.valueOf(Config.DB_HBASE_NAME_1));
+
 			Get get = new Get(Bytes.toBytes("" +key));
 			start = System.currentTimeMillis();
 			Result result = table.get(get);
@@ -68,17 +110,12 @@ public class CrudHbase implements ICrud {
 	
 		return (end-start);
 	}
-
-
-	
 	
 	@Override
 	public long deleteTupleTimes(int key) {
 		long start = 0, end = 0;
 		try {
-			Configuration hbaseConf = HBaseConfiguration.create();
-			Connection connection = ConnectionFactory.createConnection(hbaseConf);
-			Table table = connection.getTable(TableName.valueOf(Config.DB_HBASE_NAME_1));
+
 			
 			Delete delete = new Delete(Bytes.toBytes("" +key));
 			start = System.currentTimeMillis();
@@ -100,6 +137,17 @@ public class CrudHbase implements ICrud {
 	public long updateTupleTimes() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	
+	@Override
+	public void closeConnection() {
+		try {
+			connection.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
