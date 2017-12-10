@@ -124,13 +124,10 @@ public class CrudHbase extends Crud {
 	public long deleteTupleTimes(int key) {
 		long start = 0, end = 0;
 		try {
-
-			
 			Delete delete = new Delete(Bytes.toBytes("" +key));
 			start = System.currentTimeMillis();
 			table.delete(delete);
 			end = System.currentTimeMillis();
-			connection.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}catch (Exception e) {

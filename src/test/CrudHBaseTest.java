@@ -407,6 +407,95 @@ class CrudHBaseTest {
 		
 	}
 	
+	
+	@Test
+	void deleteQuarterTupleTest() {
+		try {
+			try {
+				Crud cHbase = new CrudHbase(2);
+				long total = 0;
+				for (int i =0; i<23000; i++) {
+					long time = cHbase.deleteTupleTimes(i);
+					total += time;
+					System.out.println(total);
+				}
+				cHbase.closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	void deleteHalfTupleTest() {
+		try {
+			try {
+				Crud cHbase = new CrudHbase(3);
+				long total = 0;
+				for (int i =0; i<46000; i++) {
+					long time = cHbase.deleteTupleTimes(i);
+					total += time;
+					System.out.println(total);
+				}
+				cHbase.closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	void delete3quartersTupleTest() {
+		try {
+			try {
+				Crud cHbase = new CrudHbase(4);
+				long total = 0;
+				for (int i =0; i<69000; i++) {
+					long time = cHbase.deleteTupleTimes(i);
+					total += time;
+					System.out.println(total);
+				}
+				cHbase.closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Test
+	void deleteFullTupleTest() {
+		try {
+			try {
+				Crud cHbase = new CrudHbase(5);
+				long total = 0;
+				for (int i =0; i<92200; i++) {
+					long time = cHbase.deleteTupleTimes(i);
+					total += time;
+					System.out.println(total);
+				}
+				cHbase.closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
 		
 	
 	
