@@ -50,7 +50,7 @@ public class CrudHbase extends Crud {
 	
 	
 	
-	
+	@Override
 	public long createTupleTimes(int key, Contract contract) {
 		long start = 0, end = 0;
 		try {
