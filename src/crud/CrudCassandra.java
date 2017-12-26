@@ -6,7 +6,7 @@ import com.datastax.driver.core.Session;
 import model.Contract;
 import util.Config;
 
-public class CrudCassandra extends Crud{
+public class CrudCassandra {
 	Cluster cluster = null;
 	Session session = null;
 	
@@ -106,7 +106,7 @@ public class CrudCassandra extends Crud{
 		return total;
 	}
 
-	@Override
+	
 	public void closeConnection() {
 		session.close();
 		cluster.close();
