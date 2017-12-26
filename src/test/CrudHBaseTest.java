@@ -180,10 +180,14 @@ class CrudHBaseTest {
 		try {
 			try {
 				Crud cHbase = new CrudHbase(1);
-				for (int i =0; i<10; i++) {
-					long time = cHbase.readTupleTimes(i);
-					System.out.println(time);
+				for(int j =0; j<10; j++) {
+					long time = 0;
+					for (int i =0; i<10; i++) {
+						time += cHbase.readTupleTimes(i);
+						System.out.println(time);
+					}
 				}
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -312,6 +316,33 @@ class CrudHBaseTest {
 	
 	
 	@Test
+	void updateTuples10Times() {
+		try {
+			try {
+				List<Contract> contracts = UtilFileCSV.readFileCSV(Config.FILE_NAME);
+				Crud cHbase = new CrudHbase(1);
+				for(int j =0; j<10; j++) {
+					for (int i =0; i<10; i++) {
+						long total = 0;
+						long time = cHbase.updateTupleTimes(i, contracts.get(i));
+						total += time;
+//						System.out.println(time);
+						System.out.println(total);
+					}
+				}
+				cHbase.closeConnection();
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	
+	@Test
 	void updateHalfTuplesTimes() {
 		try {
 			try {
@@ -393,9 +424,11 @@ class CrudHBaseTest {
 		try {
 			try {
 				Crud cHbase = new CrudHbase(1);
-				for (int i =0; i<10; i++) {
-					long time = cHbase.deleteTupleTimes(i);
-					System.out.println(time);
+				for(int j =0; j<10; j++) {
+					for (int i =30; i<40; i++) {
+						long time = cHbase.deleteTupleTimes(i);
+						System.out.println(time);
+					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

@@ -55,15 +55,15 @@ public class CrudCassandra extends Crud{
 	}
 
 	
-	public long readAllTuplesTimes(int key, String tableName) {
+	public long readAllTuplesTimes(int id, String tableName) {
 		long total = 0, start = 0, end = 0;
 		try {
-			StringBuilder query = new StringBuilder("SELECT * FROM " +tableName);
-			
+			StringBuilder query = new StringBuilder("SELECT * FROM " +tableName+ " WHERE id=" +id+ ";");
 			start = System.currentTimeMillis();
 			session.execute(query.toString());
 			end = System.currentTimeMillis();
 			total += (end-start);
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -95,8 +95,7 @@ public class CrudCassandra extends Crud{
 	public long deleteTupleTimes(int key, String tableName) {
 		long total = 0, start = 0, end = 0;
 		try {
-			StringBuilder query = new StringBuilder("SELECT * FROM " +tableName);
-			
+			StringBuilder query = new StringBuilder("DELETE FROM " +tableName+ " WHERE id=" +key+ ";");
 			start = System.currentTimeMillis();
 			session.execute(query.toString());
 			end = System.currentTimeMillis();

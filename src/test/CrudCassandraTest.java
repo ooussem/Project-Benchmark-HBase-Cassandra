@@ -232,7 +232,57 @@ class CrudCassandraTest {
 		}
 	}
 	
+	@Test
+	public void updateOneData() {
+		long total = 0;
+		try {
+			try {
+				List<Contract> contracts = UtilFileCSV.readFileCSV(Config.FILE_NAME);
+				CrudCassandra crudCassandra = new CrudCassandra();
+				
+					long time = crudCassandra.updateTupleTimes(5, "contract_full", contracts.get(5));
+					total += time;
+//					System.out.println(time);
+					System.out.println(total);
+//					System.out.println(contracts.get(i).getAdress2());
+				crudCassandra.closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
+	
+
+	// Read
+	@Test
+	public void getOneData() {
+		long total = 0;
+		try {
+			try {
+				List<Contract> contracts = UtilFileCSV.readFileCSV(Config.FILE_NAME);
+				CrudCassandra crudCassandra = new CrudCassandra();
+				for(int i =0; i<10; i++) {
+					long time = crudCassandra.readAllTuplesTimes(i, "contract_full");
+					total += time;
+//					System.out.println(time);
+//					System.out.println(contracts.get(i).getAdress2());
+					
+				}
+				
+				System.out.println(total);
+				crudCassandra.closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	
 	// Read
@@ -241,8 +291,15 @@ class CrudCassandraTest {
 		long total = 0;
 		try {
 			try {
+				List<Contract> contracts = UtilFileCSV.readFileCSV(Config.FILE_NAME);
 				CrudCassandra crudCassandra = new CrudCassandra();
-				total = crudCassandra.readAllTuplesTimes(0, "Contract");
+				
+				for (int i =0; i<contracts.size()/4; i++) {
+					long time = crudCassandra.readAllTuplesTimes(i, "contract");
+					total += time;
+//					System.out.println(time);
+//					System.out.println(contracts.get(i).getAdress2());
+				}	
 				System.out.println(total);
 				crudCassandra.closeConnection();
 			} catch (Exception e) {
@@ -260,9 +317,16 @@ class CrudCassandraTest {
 		long total = 0;
 		try {
 			try {
+				List<Contract> contracts = UtilFileCSV.readFileCSV(Config.FILE_NAME);
 				CrudCassandra crudCassandra = new CrudCassandra();
-				total = crudCassandra.readAllTuplesTimes(0, "contract_half");
-				System.out.println(total);
+				
+				for (int i =0; i<contracts.size()/2; i++) {
+					long time = crudCassandra.readAllTuplesTimes(i, "contract_half");
+					total += time;
+//					System.out.println(time);
+					System.out.println(total);
+//					System.out.println(contracts.get(i).getAdress2());
+				}	
 				crudCassandra.closeConnection();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -278,9 +342,16 @@ class CrudCassandraTest {
 		long total = 0;
 		try {
 			try {
+				List<Contract> contracts = UtilFileCSV.readFileCSV(Config.FILE_NAME);
 				CrudCassandra crudCassandra = new CrudCassandra();
-				total = crudCassandra.readAllTuplesTimes(0, "contract_3_quarters");
-				System.out.println(total);
+				
+				for (int i =0; i<contracts.size()*3/4; i++) {
+					long time = crudCassandra.readAllTuplesTimes(i, "contract_3_quarters");
+					total += time;
+//					System.out.println(time);
+					System.out.println(total);
+//					System.out.println(contracts.get(i).getAdress2());
+				}	
 				crudCassandra.closeConnection();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -296,9 +367,16 @@ class CrudCassandraTest {
 		long total = 0;
 		try {
 			try {
+				List<Contract> contracts = UtilFileCSV.readFileCSV(Config.FILE_NAME);
 				CrudCassandra crudCassandra = new CrudCassandra();
-				total = crudCassandra.readAllTuplesTimes(0, "contract_full");
-				System.out.println(total);
+				
+				for (int i =0; i<contracts.size(); i++) {
+					long time = crudCassandra.readAllTuplesTimes(i, "contract_full");
+					total += time;
+//					System.out.println(time);
+					System.out.println(total);
+//					System.out.println(contracts.get(i).getAdress2());
+				}	
 				crudCassandra.closeConnection();
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -315,22 +393,95 @@ class CrudCassandraTest {
 	// Delete
 	@Test
 	public void deleteQuarterData() {
+		long total = 0;
+		try {
+			try {
+				List<Contract> contracts = UtilFileCSV.readFileCSV(Config.FILE_NAME);
+				CrudCassandra crudCassandra = new CrudCassandra();
+				
+				for (int i =0; i<contracts.size()/4; i++) {
+					long time = crudCassandra.deleteTupleTimes(i, "contract");
+					total += time;
+					System.out.println(total);
+				}	
+				crudCassandra.closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 	}
 	
 	@Test
 	public void deleteHalfData() {
-		
+		long total = 0;
+		try {
+			try {
+				List<Contract> contracts = UtilFileCSV.readFileCSV(Config.FILE_NAME);
+				CrudCassandra crudCassandra = new CrudCassandra();
+				
+				for (int i =0; i<contracts.size()/2; i++) {
+					long time = crudCassandra.deleteTupleTimes(i, "contract_half");
+					total += time;
+					System.out.println(total);
+				}	
+				crudCassandra.closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	public void delete3QuartersData() {
-		
+		long total = 0;
+		try {
+			try {
+				List<Contract> contracts = UtilFileCSV.readFileCSV(Config.FILE_NAME);
+				CrudCassandra crudCassandra = new CrudCassandra();
+				
+				for (int i =0; i<contracts.size()*3/4; i++) {
+					long time = crudCassandra.deleteTupleTimes(i, "contract_3_quarters");
+					total += time;
+					System.out.println(total);
+				}	
+				crudCassandra.closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
 	public void deleteFullData() {
-		
+		long total = 0;
+		try {
+			try {
+				List<Contract> contracts = UtilFileCSV.readFileCSV(Config.FILE_NAME);
+				CrudCassandra crudCassandra = new CrudCassandra();
+				
+				for (int i =0; i<contracts.size(); i++) {
+					long time = crudCassandra.deleteTupleTimes(i, "contract_full");
+					total += time;
+					System.out.println(total);
+				}	
+				crudCassandra.closeConnection();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }
