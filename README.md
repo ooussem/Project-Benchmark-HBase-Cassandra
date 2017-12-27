@@ -1,9 +1,12 @@
 # Project-Benchmark-HBase-Cassandra
-Project to apply Advanced DBMS course
+#### Project to apply Advanced DBMS course
 
-Database : 
+** Applying CRUD operations on : **
+- HBase (on Hadoop HDFS)
+- Cassandra
 
-HBase on Hadooop HDFS
+** Applying Map/Reduce operations on : **
+- HBase 
 
-Cassandra
+
 
