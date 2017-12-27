@@ -8,5 +8,6 @@
 **Applying Map/Reduce operation on :**
 - HBase 
 
+The dataset was found in [data portal Chicago](https://data.cityofchicago.org/Administration-Finance/Contracts/rsxa-ify5/data). It contains all contracts of Chicago city since 1993.
 
 
