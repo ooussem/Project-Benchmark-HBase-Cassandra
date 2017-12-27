@@ -5,7 +5,7 @@
 - HBase (on Hadoop HDFS)
 - Cassandra
 
-**Applying Map/Reduce operations on :**
+**Applying Map/Reduce operation on :**
 - HBase 
 
 
